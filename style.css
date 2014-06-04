@@ -1,0 +1,67 @@
+body {
+    background-color: #6ccbff;
+    font-family: "Helvetica Neue", "Helvetica";
+}
+
+ul, li, ol, pre {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+h1 {
+    font-size: 42pt;
+    margin-top: 60px;
+    text-align: center;
+}
+
+button {
+    width: 150px;
+    height: 40px;
+    font-size: 12pt;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.quiz {
+    width: 700px;
+    margin: 15px auto;
+    background-color: #fffce1;
+}
+
+.selector {
+    width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    font-size: 22pt;
+    font-weight: bold;
+}
+
+.hud {
+    width: 600px;
+    margin: 40px auto;
+}
+
+.hud span {
+    display: block;
+    width: 100px;
+    text-align: center;
+    font-size: 16pt;
+}
+
+.score, .attempts {
+    margin-top: 10px;
+    font-size: 14pt;
+}
+
+li.L0, li.L1, li.L2, li.L3,
+li.L5, li.L6, li.L7, li.L8
+{ list-style-type: decimal !important }
+
+.prettyprint li {
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #ffabac !important;
+}

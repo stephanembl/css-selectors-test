@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Selectors Test</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="google-code-prettify/prettify.css" />
+    <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="google-code-prettify/prettify.js"></script>
+</head>
+<body>
+    <h1>CSS Selectors Tests</h1>
+    <div class="selector"></div>
+    <pre type="text/html" class="quiz prettyprint lang-html linenums">
+&lt;h1 class="header"&gt;Welcome to the quiz&lt;/h1&gt;
+&lt;p&gt;This is a work in progress&lt;/p&gt;
+&lt;div class="about"&gt;
+  &lt;h2&gt;Why is this quiz going to help?&lt;/h2&gt;
+  &lt;p&gt;Challenge your CSS knowledge!&lt;/p&gt;
+  &lt;p&gt;Sometimes you forget how powerful CSS selectors are&lt;/p&gt;
+  &lt;p&gt;This project will go on github for beginners to learn&lt;/p&gt;
+&lt;/div&gt;</pre>
+    <div class="hud">
+        <span style="float: left;"><strong>Attempts</strong><br /><span class="attempts"></span></span>
+        <span style="float: left; width: 400px; margin-top: 5px"><button type="button" class="check">CHECK</button></span>
+        <span style="float: right;"><strong>Score</strong><br /><span class="score"></span></span>
+    </div>
+    <script type="text/javascript">
+        var quiz = {
+            selectors: [
+                "h2 ~ p",
+                "div *"
+            ],
+            answers: [
+                [5,6,7],
+                [10,11]
+            ],
+            init: function(){
+                prettyPrint();
+                this.idx = 0;
+                this.attempts = 0;
+                this.score = 0;
+                this.lines = 0;
+                this.refreshHud();
+                this.listenAttempts();
+            },
+            refreshHud: function(){
+                $(".selector").text(quiz.selectors[quiz.idx]);
+                $(".score").text(quiz.score);
+                $(".attempts").text(quiz.attempts);
+            },
+            checkAttempts: function(){
+                var selected = [];
+                $.each(quiz.lines, function(index, val){
+                    if ($(val).hasClass("selected")){
+                        selected.push(index + 1);
+                    }
+                });
+                if (selected.length != quiz.answers[quiz.idx].length){
+                    return false;
+                }
+                var res = true;
+                $.each(selected, function(index, val){
+                    if (quiz.answers[quiz.idx][index] != val){
+                        res = false;
+                        return false;
+                    }
+                });
+                return res;
+            },
+            listenAttempts: function(){
+                quiz.lines = $(".prettyprint li");
+                quiz.lines.on('click', function(){
+                    $(this).toggleClass("selected");
+                });
+                $(".check").on('click', function(){
+                    quiz.attempts += 1;
+                    if (quiz.checkAttempts()){
+                        quiz.score += 1;
+                    } else {
+                        $.each(quiz.lines, function(index, val){
+                            if ($(val).hasClass("selected")){
+                                $(this).toggleClass("selected");
+                            }
+                        });
+                    }
+                    quiz.refreshHud();
+                });
+            }
+        }
+        $(document).ready(function(){
+            quiz.init();
+        });
+    </script>
+</body>
+</html>
